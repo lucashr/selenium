@@ -27,6 +27,7 @@ public class TesteCadastro {
 		Assert.assertEquals("Silva", driver.findElement(By.id("descSobrenome")).getText());
 		Assert.assertEquals("Masculino", driver.findElement(By.id("descSexo")).getText());
 		Assert.assertEquals("Pizza", driver.findElement(By.id("descComida")).getText());
+		Assert.assertEquals("2graucomp", driver.findElement(By.id("2graucomp")).getText());
 		
 		
 		
