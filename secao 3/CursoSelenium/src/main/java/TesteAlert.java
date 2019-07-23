@@ -1,4 +1,6 @@
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -7,11 +9,23 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class TesteAlert {
 	
+	private WebDriver driver;
+	
+	@Before // Antes de cada metodo, execute o conteudo deste metodo
+	public void inicializa() {
+		System.setProperty("webdriver.gecko.driver","C:/Users/lucas.rafael/Downloads/drivers/geckodriver.exe");
+		driver = new FirefoxDriver();
+		// System.getProperty("user.dir") -> Pega o caminho de execucao do java ( diretorio raiz )
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+	}
+	
+	@After
+	public void finaliza() {
+		driver.quit();
+	}
+	
 	@Test
 	public void deveInteragirComAlertSimples() {
-		System.setProperty("webdriver.gecko.driver","C:/Users/lucas.rafael/Downloads/drivers/geckodriver.exe");
-		WebDriver driver = new FirefoxDriver();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 		
 		driver.findElement(By.id("alert")).click();
 		Alert alert = driver.switchTo().alert();
@@ -21,14 +35,10 @@ public class TesteAlert {
 		
 		driver.findElement(By.id("elementosForm:nome")).sendKeys(texto);
 		
-		driver.quit();
 	}
 	
 	@Test
 	public void deveInteragirComAlertConfirm() {
-		System.setProperty("webdriver.gecko.driver","C:/Users/lucas.rafael/Downloads/drivers/geckodriver.exe");
-		WebDriver driver = new FirefoxDriver();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 		
 		driver.findElement(By.id("confirm")).click();
 		Alert alerta = driver.switchTo().alert();
@@ -44,15 +54,10 @@ public class TesteAlert {
 		Assert.assertEquals("Negado", alerta.getText());
 		alerta.dismiss();
 		
-		driver.quit();
-		
 	}
 	
 	@Test
 	public void deveInteragirComAlertPrompt() {
-		System.setProperty("webdriver.gecko.driver","C:/Users/lucas.rafael/Downloads/drivers/geckodriver.exe");
-		WebDriver driver = new FirefoxDriver();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 		
 		driver.findElement(By.id("prompt")).click();
 		Alert alerta = driver.switchTo().alert();
@@ -63,8 +68,6 @@ public class TesteAlert {
 		alerta.accept();
 		Assert.assertEquals(":D", alerta.getText());
 		alerta.accept();
-		
-		driver.quit();
 		
 	}
 

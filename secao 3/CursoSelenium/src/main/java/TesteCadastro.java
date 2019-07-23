@@ -1,4 +1,6 @@
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,11 +9,23 @@ import org.openqa.selenium.support.ui.Select;
 
 public class TesteCadastro {
 	
-	@Test
-	public void deveBuscarTextosNaPagina() {
+	private WebDriver driver;
+	
+	@Before // Antes de cada metodo, execute o conteudo deste metodo
+	public void inicializa() {
 		System.setProperty("webdriver.gecko.driver","C:/Users/lucas.rafael/Downloads/drivers/geckodriver.exe");
-		WebDriver driver = new FirefoxDriver();
+		driver = new FirefoxDriver();
+		// System.getProperty("user.dir") -> Pega o caminho de execucao do java ( diretorio raiz )
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+	}
+	
+	@After
+	public void finaliza() {
+		driver.quit();
+	}
+	
+	@Test
+	public void deveRealizarCadastroComSucesso() {
 		
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Lucas");
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Silva");
@@ -27,9 +41,7 @@ public class TesteCadastro {
 		Assert.assertEquals("Silva", driver.findElement(By.id("descSobrenome")).getText());
 		Assert.assertEquals("Masculino", driver.findElement(By.id("descSexo")).getText());
 		Assert.assertEquals("Pizza", driver.findElement(By.id("descComida")).getText());
-		Assert.assertEquals("2graucomp", driver.findElement(By.id("2graucomp")).getText());
-		
-		
+		Assert.assertEquals("2graucomp", driver.findElement(By.id("2graucomp")).getText());	
 		
 	}
 }
