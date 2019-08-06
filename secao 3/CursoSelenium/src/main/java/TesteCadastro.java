@@ -31,7 +31,7 @@ public class TesteCadastro {
 	@Test
 	public void deveRealizarCadastroComSucesso() {		
 		page.setNome("Lucas");
-		page.setSobreNome("elementosForm:sobrenome");
+		page.setSobreNome("Silva");
 		page.setSexoMasculino();
 		page.setComidaPizza();
 		page.setEscolaridade("Mestrado");
@@ -86,15 +86,8 @@ public class TesteCadastro {
 		page.setSobreNome("Sobrenome qualquer");
 		page.setSexoFeminino();
 		page.setComidaCarne();
+		page.setEsporte("Karate", "O que eh esporte?");
 		page.cadastrar();
-		
-		dsl.escrever("elementosForm:nome", "Nome qualquer");
-		dsl.escrever("elementosForm:sobrenome", "Sobrenome qualquer");
-		dsl.clicarRadio("elementosForm:sexo:1");
-		dsl.clicarRadio("elementosForm:comidafavorita:0");
-		dsl.deselecionarCombo("elementosForm:esportes", "Karate");
-		dsl.deselecionarCombo("elementosForm:esportes", "O que eh esporte?");
-		dsl.clicarBotao("elementosForm:cadastrar");
 		Assert.assertEquals("Voce faz esporte ou nao?", dsl.alertaObterTextoAceita());
 	}
 	

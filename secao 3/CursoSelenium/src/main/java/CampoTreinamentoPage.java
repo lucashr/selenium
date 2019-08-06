@@ -13,7 +13,7 @@ public class CampoTreinamentoPage {
 	}
 	
 	public void setSobreNome(String sobrenome) {
-		dsl.escrever("elementosForm:nome", sobrenome);
+		dsl.escrever("elementosForm:sobrenome", sobrenome);
 	}
 	
 	public void setSexoMasculino() {
@@ -40,8 +40,10 @@ public class CampoTreinamentoPage {
 		dsl.selecionarCombo("elementosForm:escolaridade", valor);
 	}
 	
-	public void setEsporte(String valor) {
-		dsl.selecionarCombo("elementosForm:esportes", valor);
+	public void setEsporte(String... valores) {
+		for (String valor :  valores) {
+			dsl.selecionarCombo("elementosForm:esportes", valor);
+		}		
 	}
 	
 	public void cadastrar() {
