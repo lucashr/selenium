@@ -35,7 +35,7 @@ public class TesteRegrasCadastro {
 	
 	@Before // Antes de cada metodo, execute o conteudo deste metodo
 	public void inicializa() {
-		System.setProperty("webdriver.gecko.driver","C:/Users/lucas.rafael/Downloads/drivers/geckodriver.exe");
+		System.setProperty("webdriver.gecko.driver","C:/Users/lucas/Downloads/drivers/geckodriver.exe");
 		driver = new FirefoxDriver();
 		// System.getProperty("user.dir") -> Pega o caminho de execucao do java ( diretorio raiz )
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
@@ -65,14 +65,13 @@ public class TesteRegrasCadastro {
 		page.setSobreNome(sobrenome);
 		if(sexo.contentEquals("Masculino")) {
 			page.setSexoMasculino();
-		}else {
+		}
+		if(sexo.contentEquals("Feminino")) {
 			page.setSexoFeminino();
 		}
 		if(comidas.contains("Carne")) page.setComidaCarne();
 		if(comidas.contains("Pizza")) page.setComidaPizza();
 		if(comidas.contains("Vegetariano")) page.setComidaVegetariano();		
-		page.setSexoFeminino();
-		page.setComidaCarne();
 		page.setEsporte(esportes);
 		page.cadastrar();
 		System.out.println(msg);
