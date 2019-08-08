@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -18,7 +19,8 @@ public class TesteCampoTreinamento {
 	
 	@Before // Antes de cada metodo, execute o conteudo deste metodo
 	public void inicializa() {
-		System.setProperty("webdriver.gecko.driver","C:/Users/lucas.rafael/Downloads/drivers/geckodriver.exe");
+		//System.setProperty("webdriver.gecko.driver","C:/Users/lucas.rafael/Downloads/drivers/geckodriver.exe");
+		System.setProperty("webdriver.gecko.driver","C:/Users/lucas/Downloads/drivers/geckodriver.exe");
 		driver = new FirefoxDriver();
 		// System.getProperty("user.dir") -> Pega o caminho de execucao do java ( diretorio raiz )
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
@@ -27,7 +29,7 @@ public class TesteCampoTreinamento {
 	
 	@After
 	public void finaliza() {
-		driver.quit();
+		//driver.quit();
 	}
 	
 	@Test
@@ -105,8 +107,7 @@ public class TesteCampoTreinamento {
 	@Test
 	//@Ignore
 	public void deveInteragirComLinks() {		
-		dsl.clicarLink("");
-		
+		dsl.clicarLink("resultado");		
 		Assert.assertEquals("Voltou!", dsl.obterTexto("resultado"));
 		
 	}
@@ -118,4 +119,17 @@ public class TesteCampoTreinamento {
 		
 		Assert.assertEquals("Cuidado onde clica, muitas armadilhas...", dsl.obterTexto(By.className("facilAchar")));
 	}
+	
+	@Test
+	public void testJavascript() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		//js.executeScript("alert('Testando js via selenium')");
+		js.executeScript("document.getElementById('elementosForm:nome').value = 'Escrito via js'");
+		js.executeScript("document.getElementById('elementosForm:sobrenome').type = 'radio'");
+		
+		WebElement element = driver.findElement(By.id("elementosForm:nome"));
+		js.executeScript("arguments[0].style.border = arguments[1]", element, "solid 4px red");
+		
+	}
+	
 }

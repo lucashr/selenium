@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 
@@ -15,7 +16,8 @@ public class TesteFramesEJanelas {
 	
 	@Before // Antes de cada metodo, execute o conteudo deste metodo
 	public void inicializa() {
-		System.setProperty("webdriver.gecko.driver","C:/Users/lucas.rafael/Downloads/drivers/geckodriver.exe");
+		//System.setProperty("webdriver.gecko.driver","C:/Users/lucas.rafael/Downloads/drivers/geckodriver.exe");
+		System.setProperty("webdriver.gecko.driver","C:/Users/lucas/Downloads/drivers/geckodriver.exe");
 		driver = new FirefoxDriver();
 		// System.getProperty("user.dir") -> Pega o caminho de execucao do java ( diretorio raiz )
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
@@ -36,6 +38,16 @@ public class TesteFramesEJanelas {
 		
 		dsl.sairframe();
 		dsl.escrever("elementosForm:nome" ,msg);
+	}
+	
+	@Test
+	public void deveInteragirComFrameEscondido() {
+		WebElement frame = driver.findElement(By.id("frame2"));
+		dsl.executarJS("window.scrollBy(0, arguments[0])", frame.getLocation().y);		
+		dsl.entrarframe("frame2");
+		dsl.clicarBotao("frameButton");
+		String msg = dsl.alertaObterTextoAceita();
+		Assert.assertEquals("Frame OK!", msg);
 	}
 	
 	@Test
